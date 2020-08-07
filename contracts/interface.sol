@@ -13,10 +13,10 @@ contract UniswapExample {
   }
 
   function convertEthToDai(uint daiAmount) public payable {
-    uint deadline = now + 15; // using 'now' for convenience, for mainnet pass deadline from frontend!
+    uint deadline = now + 15;
     uniswapRouter.swapETHForExactTokens.value(msg.value)(daiAmount, getPathForETHtoDAI(), address(this), deadline);
     
-    // refund leftover ETH to user
+    // refund leftover ETH 
     msg.sender.call.value(address(this).balance)("");
   }
   
@@ -32,6 +32,6 @@ contract UniswapExample {
     return path;
   }
   
-  // important to receive ETH
+  // receive ETH
   receive() payable external {}
 }
